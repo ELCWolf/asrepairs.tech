@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AS Repairs</title>
+    <link rel="stylesheet" href="triage.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="Images/ASblue.png?">
+    <link rel="icon" type="image/png" sizes="16x16" href="Images/ASblue.png?">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        .form-container {
+            padding-left: 200px;
+        }
+
+        .form-containerR {
+            padding-right: 200px;
+            float: right;
+        }
+
+        #problem-statement {
+            display: none;
+            /* Hidden by default */
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            resize: vertical;
+            /* Allow users to resize vertically */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar (sit on top) -->
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+            <a href="index.html" class="w3-bar-item w3-button w3-wide">ASRepairs</a>
+            <!-- Right-sided navbar links -->
+            <div class="w3-right w3-hide-small">
+                <a href="#about" class="w3-bar-item w3-button"><i class="fa fa-user"></i> ABOUT</a>
+                <a href="triage.html" class="w3-bar-item w3-button"><i class="fa fa-usd"></i> CONSULTATION</a>
+                <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
+            </div>
+            <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
+                onclick="w3_open()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+    </div>
+    <div class="w3-container" style="padding:128px 16px" id="header"></div>
+
+    <div class="form-container">
+        <form id="deviceInfoForm" action="https://www.formbackend.com/f/b780378939c19837" method="POST"
+            style="float: left;">
+            <label for="deviceInfo">Device Info:</label>
+            <select name="deviceInfo" id="deviceInfo" required>
+                <option disabled selected hidden>Choose an Option</option>
+                <option value="Windows">Windows Laptop</option>
+                <option value="Apple">Apple</option>
+                <option value="Other">Other</option>
+            </select><br>
+
+            <div id="companySelectDiv" class="hidden">
+                <label for="companySelect">Company:</label>
+                <select name="companySelect" id="companySelect">
+                    <option disabled selected hidden>Choose an Option</option>
+                    <option value="Dell">Dell</option>
+                    <option value="HP">HP</option>
+                    <option value="Lenovo">Lenovo</option>
+                    <option value="Acer">Acer</option>
+                    <option value="Asus">Asus</option>
+                    <option value="Microsoft">Microsoft</option>
+                </select>
+            </div>
+
+            <div id="additionalFields" class="hidden">
+                <label for="deviceModel">Device Model:</label>
+                <select name="deviceModel" id="deviceModel" class="hidden">
+                    <!-- Options will be populated dynamically -->
+                </select>
+                <input type="text" id="otherDeviceModel" name="otherDeviceModel" class="hidden"
+                    placeholder="Enter your device model">
+            </div>
+
+            <div id="otherCompanyDiv" class="hidden">
+                <label for="otherCompany">Other Company:</label>
+                <input type="text" id="otherCompany" name="otherCompany" placeholder="Enter company name">
+            </div>
+            <div id="typeOfProblem">
+                <label for="typeOfProblem">Problem Type:</label>
+                <select name="typeOfProblem" id="typeOfProblem">
+                    <option disabled selected hidden>Choose an Option</option>
+                    <option value="Hardware">Hardware Issue</option>
+                    <option value="Software">Software Issue</option>
+                </select>
+            </div>
+
+            <div id="additionalOptionsDiv" class="hidden">
+                <label for="additionalOptions">Additional options:</label>
+                <select id="additionalOptions" name="additionalOptions">
+                    <option value="" selected disabled>Select an option</option>
+                    <option value="diagnosis">Book a consultation</option>
+                    <option value="troubleshooting">Troubleshooting Guide</option>
+                    <option value="askAI">Ask AI Assistant</option>
+                </select>
+            </div>
+            <!-- Problem Statement Textarea -->
+            <div id="problem-statement-container" class="hidden">
+                <label for="problemStatement">Problem Statement (100 words max):</label>
+                <textarea id="problemStatement" name="problemStatement" maxlength="500"
+                    placeholder="Describe the problem you are facing with the device..."></textarea>
+            </div>
+
+            <label for="sn">Serial Number:</label>
+            <input type="text" id="sn" name="sn" required><br>
+
+           
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('deviceInfoForm');
+
+        form.addEventListener('submit', function (event) {
+            // Prevent the default form submission
+            event.preventDefault();
+
+            // Get form data
+            const deviceInfo = document.getElementById('deviceInfo').value;
+            const companySelect = document.getElementById('companySelect').value;
+            const deviceModel = document.getElementById('deviceModel').value || document.getElementById('otherDeviceModel').value;
+            const otherCompany = document.getElementById('otherCompany').value;
+            const typeOfProblem = document.getElementById('typeOfProblem').value;
+            const additionalOptions = document.getElementById('additionalOptions').value;
+            const sn = document.getElementById('sn').value;
+            const problemStatement = document.getElementById('problemStatement').value;
+            console.log('SN:', sn);
+            console.log('Problem Statement:', problemStatement);
+
+            // Store form data in sessionStorage
+            sessionStorage.setItem('deviceInfo', deviceInfo);
+            sessionStorage.setItem('companySelect', companySelect);
+            sessionStorage.setItem('deviceModel', deviceModel);
+            sessionStorage.setItem('otherCompany', otherCompany);
+            sessionStorage.setItem('typeOfProblem', typeOfProblem);
+            sessionStorage.setItem('additionalOptions', additionalOptions);
+            sessionStorage.setItem('sn', sn);
+            sessionStorage.setItem('problemStatement', problemStatement);
+
+            // Handle navigation based on selected option
+            if (additionalOptions === 'askAI') {
+                window.location.href = 'chatbot.html'; // Redirect to the chatbot page
+            } else if (additionalOptions === 'troubleshooting') {
+                window.location.href = 'pages.html';
+            } else if (additionalOptions === 'diagnosis') {
+                window.location.href = 'https://calendly.com/aryanksheth/3-consultation';
+            }
+        });
+
+        const deviceInfoSelect = document.getElementById('deviceInfo');
+        const companySelect = document.getElementById('companySelect');
+        const deviceModelSelect = document.getElementById('deviceModel');
+        const otherDeviceModelInput = document.getElementById('otherDeviceModel');
+        const companySelectDiv = document.getElementById('companySelectDiv');
+        const additionalFieldsDiv = document.getElementById('additionalFields');
+        const otherCompanyDiv = document.getElementById('otherCompanyDiv');
+        const typeOfProblemSelect = document.getElementById('typeOfProblem');
+        const additionalOptionsDiv = document.getElementById('additionalOptionsDiv');
+        const problemStatementContainer = document.getElementById('problem-statement-container');
+
+        const windowsModels = {
+            Dell: ['XPS 13', 'XPS 15', 'Inspiron 15', 'Latitude 14'],
+            HP: ['Spectre x360', 'Envy 13', 'Pavilion 15', 'EliteBook 840'],
+            Lenovo: ['ThinkPad X1', 'Yoga 9i', 'IdeaPad 3', 'Legion 5'],
+            Acer: ['Aspire 5', 'Swift 3', 'Nitro 5', 'Predator Helios'],
+            Asus: ['ZenBook 14', 'ROG Zephyrus', 'VivoBook S15', 'TUF Gaming'],
+            Microsoft: ['Surface Laptop 4', 'Surface Pro 7', 'Surface Book 3', 'Surface Go 2']
+        };
+
+        const appleModels = ['MacBook Air M2', 'MacBook Pro 14', 'MacBook Pro 16', 'MacBook Pro 13'];
+
+        deviceInfoSelect.addEventListener('change', function () {
+            const selectedValue = deviceInfoSelect.value;
+
+            if (selectedValue === 'Windows') {
+                companySelectDiv.classList.remove('hidden');
+                otherCompanyDiv.classList.add('hidden');
+                additionalFieldsDiv.classList.add('hidden');
+
+                companySelect.addEventListener('change', function () {
+                    const selectedCompany = companySelect.value;
+                    populateModels(windowsModels[selectedCompany]);
+                    additionalFieldsDiv.classList.remove('hidden');
+                    otherDeviceModelInput.classList.add('hidden');
+                });
+            } else if (selectedValue === 'Apple') {
+                companySelectDiv.classList.add('hidden');
+                populateModels(appleModels);
+                additionalFieldsDiv.classList.remove('hidden');
+                otherDeviceModelInput.classList.add('hidden');
+                otherCompanyDiv.classList.add('hidden');
+                deviceModelSelect.classList.remove('hidden');
+            } else if (selectedValue === 'Other') {
+                companySelectDiv.classList.add('hidden');
+                additionalFieldsDiv.classList.remove('hidden');
+                deviceModelSelect.classList.add('hidden');
+                otherDeviceModelInput.classList.remove('hidden');
+                otherCompanyDiv.classList.remove('hidden');
+            } else {
+                additionalFieldsDiv.classList.add('hidden');
+                otherDeviceModelInput.classList.add('hidden');
+                otherCompanyDiv.classList.add('hidden');
+                companySelectDiv.classList.add('hidden');
+            }
+
+            // Show problem statement if device info is selected
+            typeOfProblemSelect.addEventListener('change', function () {
+                problemStatementContainer.classList.remove('hidden');
+            });
+        });
+
+        typeOfProblemSelect.addEventListener('change', function () {
+            additionalOptionsDiv.classList.remove('hidden');
+        });
+
+        function populateModels(models) {
+            deviceModelSelect.innerHTML = '';
+            models.forEach(model => {
+                const option = document.createElement('option');
+                option.value = model;
+                option.textContent = model;
+                deviceModelSelect.appendChild(option);
+            });
+            if (models.length > 0) {
+                deviceModelSelect.classList.remove('hidden');
+            } else {
+                deviceModelSelect.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+
+</html>

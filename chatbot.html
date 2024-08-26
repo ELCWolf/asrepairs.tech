@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AS Repairs AI</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .chat-widget {
+            width: 500px;
+            height: 600px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background-color: #49535e;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.4em;
+        }
+
+        .chat-container {
+            background-color: white;
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .message {
+            margin-bottom: 12px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            max-width: 85%;
+            word-wrap: break-word;
+            position: relative;
+        }
+
+        .message.system {
+            background-color: #000000;
+            color: #333;
+        }
+
+        .message.user {
+            background-color: #49535e;
+            color: white;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+
+        .message.assistant {
+            background-color: #1787d2;
+            color: white;
+            align-self: flex-start;
+            margin-right: auto;
+        }
+
+        .input-container {
+            display: flex;
+            padding: 15px;
+            background-color: white;
+            border-top: 1px solid #ddd;
+        }
+
+        .input-container textarea {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+        .input-container button {
+            padding: 12px 20px;
+            border: none;
+            background-color: #49535e;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .input-container button:hover {
+            background-color: #3c4249;
+        }
+         .footnote {
+            padding: 10px;
+            background-color: #f9f9f9;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+    <div class="w3-bar w3-white w3-card" id="myNavbar">
+        <a href="index.html" class="w3-bar-item w3-button w3-wide">ASRepairs</a>
+        <!-- Right-sided navbar links -->
+        <div class="w3-right w3-hide-small">
+            <a href="#about" class="w3-bar-item w3-button"><i class="fa fa-user"></i> ABOUT</a>
+            <a href="triage.html" class="w3-bar-item w3-button"><i class="fa fa-usd"></i>3 CONSULTATION</a>
+            <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
+        </div>
+        <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
+            onclick="w3_open()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+</div>
+<body>
+    <div class="chat-widget">
+        <div class="chat-header">
+            AS Repairs AI
+        </div>
+        <div id="chat-container" class="chat-container">
+            <!-- Chat log will be displayed here -->
+        </div>
+        <div class="input-container">
+            <textarea id="user-input" rows="6" placeholder="Type your message here..."></textarea>
+            <button id="sendMessageButton">Send</button>
+        </div>
+        <div class="footnote">
+            Please allow approximately 30 seconds prior to refreshing  for a response.
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const deviceInfo = sessionStorage.getItem('deviceInfo') || '';
+                const companySelect = sessionStorage.getItem('companySelect') || '';
+                const deviceModel = sessionStorage.getItem('deviceModel') || '';
+                const otherCompany = sessionStorage.getItem('otherCompany') || '';
+                const typeOfProblem = sessionStorage.getItem('problemStatement') || '';
+                const imei = sessionStorage.getItem('sn') || '';
+
+                const template = `
+                Device Info: ${deviceInfo}
+                Company: ${companySelect || otherCompany}
+                Model: ${deviceModel}
+                Problem Type: ${typeOfProblem}
+                IMEI/SN: ${imei}
+                `;
+
+            document.getElementById('user-input').value = template.trim();
+        });
+
+        function typeWriter(text, element, speed) {
+            let i = 0;
+            function writer() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(writer, speed);
+                }
+            }
+            writer();
+        }
+
+       async function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            const chatContainer = document.getElementById('chat-container');
+
+            if (!userInput.trim()) return;
+
+            // Display user's message
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.className = 'message user';
+            userMessageDiv.textContent = userInput;
+            chatContainer.appendChild(userMessageDiv);
+
+            document.getElementById('user-input').value = '';
+
+            const response = await fetch('http://localhost:3000/api/chat', { // Update the URL here
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    userInput: userInput
+                })
+            });
+
+            const data = await response.json();
+            const assistantMessage = data.choices[0].message.content;
+
+            // Display assistant's message with typewriter effect
+            const assistantMessageDiv = document.createElement('div');
+            assistantMessageDiv.className = 'message assistant';
+            chatContainer.appendChild(assistantMessageDiv);
+
+            // Apply typewriter effect
+            typeWriter(assistantMessage, assistantMessageDiv, 20);
+
+            // Scroll to the bottom of the chat container
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            setTimeout(() => {
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, assistantMessage.length * 20);
+        }
+
+
+        document.getElementById('user-input').addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+
+</html>

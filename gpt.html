@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="gpt.css">
+    <title>ASRepairs Virtual Assistant</title>
+</head>
+
+<body>
+    <div class="chat-widget" id="chat-widget">
+        <div class="chat-header">
+            ASRepairs Assistant
+        </div>
+        <div class="chat-container" id="chat-container">
+            <div class="message system">
+                Welcome to ASRepairs! I am your virtual assistant here to help you with any tech repair or consulting
+                needs.
+                How can I assist you today?<br>
+                If you have a specific issue or question, please describe it in detail, and I'll do my best to help
+                you.<br>
+                If you'd prefer to make an appointment directly with one of our experts, just let me know.<br>
+                If I am unable to provide a sufficient answer to your query, you can skip to making an appointment with
+                one
+                of our experts.<br>
+                How would you like to proceed?
+            </div>
+        </div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Type your message here..."
+                onkeydown="if(event.key === 'Enter') sendMessage()">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script src="chatbot.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+form {
+    width: 300px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+    margin-top: 20px;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="email"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #3a4e58;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #3a4e58;
+}
+
+.hidden {
+    display: none;
+}
+button {
+  /* Remove default button styles */
+  background: rgb(98, 114, 128);
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  font-size: inherit;
+  cursor: pointer;
+  /* Add rounded corners */
+  border-radius: 5px;
+  /* Add a light border on hover */
+  transition: border 0.3s ease;
+}
+.w3-bar .w3-button {
+  padding: 16px;
+}

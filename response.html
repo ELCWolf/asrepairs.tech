@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Response</title>
+    <link rel="stylesheet" href="triage.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="w3-container" style="padding:128px 16px">
+        <h1>Thank You for Your Submission</h1>
+        <div id="responseContent">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        function displayFormData() {
+            const formData = getCookie('formData');
+            if (formData) {
+                const data = JSON.parse(formData);
+                document.getElementById('responseContent').textContent = JSON.stringify(data, null, 2);
+            } else {
+                document.getElementById('responseContent').textContent = 'No data found.';
+            }
+        }
+
+        displayFormData();
+    </script>
+</body>
+
+</html>

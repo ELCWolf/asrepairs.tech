@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AS Repairs</title>
+    <link rel="stylesheet" href="triage.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="Images/ASblue.png?">
+    <link rel="icon" type="image/png" sizes="16x16" href="Images/ASblue.png?">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .hidden {
+            display: none;
+        }
+        .form-container {
+            padding-left: 200px;
+        }
+        .form-containerR{
+            padding-right: 200px;
+            float: right;
+        }
+        
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar (sit on top) -->
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-card" id="myNavbar">
+            <a href="index.html" class="w3-bar-item w3-button w3-wide">ASRepairs</a>
+            <!-- Right-sided navbar links -->
+            <div class="w3-right w3-hide-small">
+                <a href="#about" class="w3-bar-item w3-button"><i class="fa fa-user"></i> ABOUT</a>
+                <a href="triage.html" class="w3-bar-item w3-button"><i class="fa fa-usd"></i>3 CONSULTATION</a>
+                <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
+            </div>
+            <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+    
+            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium"
+                onclick="w3_open()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+    </div>
+    <div class="w3-container" style="padding:128px 16px" id="header"></div>
+
+    <div class="form-container">
+    <form id="deviceInfoForm" action="https://www.formbackend.com/f/b780378939c19837" method="POST" style="float: left;">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+        
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="tel" id="phoneNumber" name="phoneNumber" required><br>
+        
+       
+        
+        <label for="deviceInfo">Device Info:</label>
+        <select name="deviceInfo" id="deviceInfo" required>
+            <option value="Option">Choose an Option</option>
+            <option value="Samsung">Samsung</option>
+            <option value="Apple">Apple</option>
+            <option value="Other">Other</option>
+        </select><br>
+
+        <div id="seriesSelectDiv" class="hidden">
+            <label for="seriesSelect">Series:</label>
+            <select name="seriesSelect" id="seriesSelect">
+                <option value="Option">Choose an Option</option>
+                <option value="S">S Series</option>
+                <option value="Note">Note Series</option>
+                <option value="Flip">Flip Series</option>
+                <option value="Fold">Fold Series</option>
+                <option value="A">A Series</option>
+            </select>
+        </div>
+
+        <div id="additionalFields" class="hidden">
+            <label for="deviceModel">Device Model:</label>
+            <select name="deviceModel" id="deviceModel" class="hidden">
+                <!-- Options will be populated dynamically -->
+            </select>
+            <input type="text" id="otherDeviceModel" name="otherDeviceModel" class="hidden"
+                placeholder="Enter your device model">
+        </div>
+
+        <div id="otherCompanyDiv" class="hidden">
+            <label for="otherCompany">Other Company:</label>
+            <input type="text" id="otherCompany" name="otherCompany" placeholder="Enter company name">
+        </div>
+
+        <label for="imei">IMEI/SN:</label>
+        <input type="text" id="imei" name="imei" required><br>
+
+        
+
+        <input type="submit" value="Submit">
+        
+    </form>
+</div>
+<!-- Calendly inline widget begin -->
+
+</style>
+<!-- AI Agent Begin -->
+<script src="widget.js"></script>
+<!-- AI Agent Begin -->
+
+
+<!-- Calendly inline widget end -->
+    <script>
+        const deviceInfoSelect = document.getElementById('deviceInfo');
+        const seriesSelectDiv = document.getElementById('seriesSelectDiv');
+        const seriesSelect = document.getElementById('seriesSelect');
+        const additionalFieldsDiv = document.getElementById('additionalFields');
+        const deviceModelSelect = document.getElementById('deviceModel');
+        const otherDeviceModelInput = document.getElementById('otherDeviceModel');
+        const otherCompanyDiv = document.getElementById('otherCompanyDiv');
+
+        const samsungModels = {
+            S: ['Galaxy S24 Ultra', 'Galaxy S24+', 'Galaxy S24', 'Galaxy S23 Ultra', 'Galaxy S23+', 'Galaxy S23', 'Galaxy S22 Ultra', 'Galaxy S22+', 'Galaxy S22', 'Galaxy S21 Ultra', 'Galaxy S21+', 'Galaxy S21', 'Galaxy S20 Ultra', 'Galaxy S20+', 'Galaxy S20'],
+            Note: ['Galaxy Note 20 Ultra', 'Galaxy Note 20', 'Galaxy Note 10+', 'Galaxy Note 10'],
+            Flip: ['Galaxy Z Flip 5', 'Galaxy Z Flip 4', 'Galaxy Z Flip 3', 'Galaxy Z Flip'],
+            Fold: ['Galaxy Z Fold 5', 'Galaxy Z Fold 4', 'Galaxy Z Fold 3'],
+            A: ['Galaxy A54', 'Galaxy A34', 'Galaxy A24', 'Galaxy A14']
+        };
+        deviceInfoSelect.addEventListener('change', function () {
+            const selectedValue = deviceInfoSelect.value;
+
+            if (selectedValue === 'Samsung') {
+                seriesSelectDiv.classList.remove('hidden');
+                otherCompanyDiv.classList.add('hidden');
+                additionalFieldsDiv.classList.add('hidden');
+            } else if (selectedValue === 'Apple') {
+                seriesSelectDiv.classList.add('hidden');
+                populateModels(['iPhone 13', 'iPhone 12', 'iPhone SE']); // You can add Apple models here if needed
+                additionalFieldsDiv.classList.remove('hidden');
+                otherDeviceModelInput.classList.add('hidden');
+                otherCompanyDiv.classList.add('hidden');
+                deviceModelSelect.classList.remove('hidden');
+            } else if (selectedValue === 'Other') {
+                seriesSelectDiv.classList.add('hidden');
+                additionalFieldsDiv.classList.remove('hidden');
+                deviceModelSelect.classList.add('hidden');
+                otherDeviceModelInput.classList.remove('hidden');
+                otherCompanyDiv.classList.remove('hidden');
+            } else {
+                additionalFieldsDiv.classList.add('hidden');
+                otherDeviceModelInput.classList.add('hidden');
+                otherCompanyDiv.classList.add('hidden');
+                seriesSelectDiv.classList.add('hidden');
+            }
+        });
+
+        seriesSelect.addEventListener('change', function () {
+            const selectedSeries = seriesSelect.value;
+            populateModels(samsungModels[selectedSeries]);
+            additionalFieldsDiv.classList.remove('hidden');
+            otherDeviceModelInput.classList.add('hidden');
+        });
+
+        function populateModels(models) {
+            deviceModelSelect.innerHTML = '';
+            models.forEach(model => {
+                const option = document.createElement('option');
+                option.value = model;
+                option.textContent = model;
+                deviceModelSelect.appendChild(option);
+            });
+            if (models.length > 0) {
+                deviceModelSelect.classList.remove('hidden');
+            } else {
+                deviceModelSelect.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+
+</html>

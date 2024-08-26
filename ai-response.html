@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AS Repairs</title>
+    <link rel="stylesheet" href="triage.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="Images/ASblue.png?">
+    <link rel="icon" type="image/png" sizes="16x16" href="Images/ASblue.png?">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div id="response"></div>
+
+    <script>
+        // Retrieve stored data from sessionStorage
+        const deviceInfo = sessionStorage.getItem('deviceInfo');
+        const companySelect = sessionStorage.getItem('companySelect');
+        const deviceModel = sessionStorage.getItem('deviceModel');
+        const otherCompany = sessionStorage.getItem('otherCompany');
+        const typeOfProblem = sessionStorage.getItem('typeOfProblem');
+        const additionalOptions = sessionStorage.getItem('additionalOptions');
+        const imei = sessionStorage.getItem('imei');
+
+        // Construct the prompt for the OpenAI API
+        const prompt = `Device Info: ${deviceInfo}, Company: ${companySelect || otherCompany}, Model: ${deviceModel}, Problem Type: ${typeOfProblem}, IMEI/SN: ${imei}. Please provide assistance.`;
+
+        // Call the OpenAI API
+        async function callOpenAI() {
+            const responseElement = document.getElementById('response');
+            responseElement.textContent = 'Processing...';
+
+            try {
+                const response = await fetch('YOUR_OPENAI_API_ENDPOINT', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer'
+                    body: JSON.stringify({
+                        model: 'text-davinci-003',
+                        prompt: prompt,
+                        max_tokens: 150
+                    })
+                });
+
+                const data = await response.json();
+                responseElement.textContent = data.choices[0].text;
+            } catch (error) {
+                responseElement.textContent = 'An error occurred while processing your request.';
+                console.error('Error:', error);
+            }
+        }
+
+        callOpenAI();
+    </script>
+</body>
+
+</html>
