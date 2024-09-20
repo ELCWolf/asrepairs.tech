@@ -191,7 +191,7 @@
 
             document.getElementById('user-input').value = '';
 
-            const response = await fetch('http://localhost:3000/api/chat', { // Update the URL here
+                const response = await fetch('/api/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
