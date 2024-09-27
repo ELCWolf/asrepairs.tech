@@ -92,3 +92,12 @@ footer {
   bottom: 0;
   left: 0;
 }
+ pre {
+            background-color: #212121;
+            border: 1px solid #6C7A86;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+            white-space: pre-wrap; /* Wrap lines for better readability */
+        }

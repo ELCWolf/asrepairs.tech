@@ -43,6 +43,18 @@
             resize: vertical;
             /* Allow users to resize vertically */
         }
+  .image-container {
+    text-align: right; /* Align the image container's content to the right */
+    margin-top: 20px; /* Add margin to create some space from the top */
+}
+
+.right-aligned-image {
+    margin-right: 200px;
+    margin-top: -50px;
+    width: auto; /* Adjust the width of the image as needed */
+    height: auto; /* Maintain the aspect ratio */
+}
+        
     </style>
 </head>
 
@@ -137,7 +149,10 @@
             <input type="submit" value="Submit">
         </form>
     </div>
-
+<div class="image-container">
+    <img src="Images/360_F_254424460_LB8nCUQKHakBaTusEg8K5pEi3psFpR31.jpg" alt="Device Image" class="right-aligned-image">
+</div>
+</div>
     <script>
         const form = document.getElementById('deviceInfoForm');
 

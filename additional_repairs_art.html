@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, inital-scale=1.0">
+        <title>Resolving Additional Repairs loop</title>
+        <link rel="stylesheet" href="blog.css">
+    </head>
+    </html>
+    <body>
+    <header>
+        <div class="container">
+            <h1>Install New RAM</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#1">Understand Your RAM Needs</a></li>
+                    <li><a href="#2">Gather Your Tools</a></li>
+                    <li><a href="#3">Power your PC Down</a></li>
+                    <li><a href="#4">Open Casing</a></li>
+                    <li><a href="#5">Locate RAM Slots</a></li>
+                    <li><a href="#6">Remove Old RAM</a></li>
+                    <li><a href="#7">Insert new RAM</a></li>
+                    <li><a href="#8">Reassemble Your Computer</a></li>
+                    <li><a href="#9">Power on & Verify Installation</a></li>
+                    <li><a href="#10">Run A System Test</a></li>
+                    <li><a href="#Tips & Tricks">Tips & Tricks</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <section id="intro">
+                <h2>How to Bypass the Automatic Repair Loop on Windows</h2>
+           
+            <p>The "Automatic Repair" loop is a common issue for Windows users. It's frustrating when your PC continuously attempts to
+            diagnose itself and enter an endless repair cycle, preventing you from accessing your system. Whether it's due to
+            corrupted system files, faulty hardware, or a recent update gone wrong, this guide will show you how to bypass the
+            "Automatic Repair" loop and get your system back up and running.</p>
+            </section>
+            <section id="1">
+                <h2>What is the Automatic Repair Loop?</h2>
+When Windows detects a startup issue, it automatically tries to diagnose and repair the problem. In some cases, instead
+of resolving the issue, Windows gets stuck in an endless loop of trying to repair itself, but ultimately failing,
+leaving users with no way to boot into the system normally.
+            </section>
+            <section id="2">
+                <h2>Causes of the Automatic Repair Loop</h2>
+                <p>There are several reasons why this loop might occur:</p>
+                <ul>
+                    <li>Corrupted system files from an improper shutdown, software issues, or virus infection.</li>
+                    <li>Hardware issues like a failing hard drive or SSD.</li>
+                    <li>Failed Windows updates or bad drivers.</li>
+                    <li>Incorrect boot configurations in the system's boot files.</li>
+                </ul>
+            </section>
+            <section id="3">
+                <h2>Methods to Bypass the Automatic Repair Loop</h2>
+                <p>Here are several ways to bypass the loop and get back into your system. If one method doesn’t work, try the next until
+                the issue is resolved.</p>
+                <h2>Method 1: Disable Automatic Repair on Startup</h2>
+                <p>Enter the Windows Recovery Environment (WinRE)
+                
+                Power on your computer and, as soon as Windows tries to boot, hold the power button to force a shutdown.
+                Repeat this process two more times, and on the third restart, Windows should automatically boot into WinRE.
+                Access the Command Prompt
+                
+                In the WinRE, click on Troubleshoot > Advanced Options > Command Prompt.
+                Disable Automatic Repair
+                
+                Once the Command Prompt opens, type the following command and press Enter:
+                bash
+                Copy code
+                bcdedit /set {default} recoveryenabled no
+                This will disable the automatic repair feature, so Windows won’t attempt to repair itself at startup.
+                
+                Restart Your PC
+                
+                Now, restart your PC and check if the issue is resolved.</p>
+            </section>
+            <section id="4">
+                <h2>Method 2: Run System File Checker (SFC) and CHKDSK</h2>
+                <p>
+                    Corrupted system files can often cause the repair loop. Running system scans can help restore damaged files.
+                    
+                    Access the Command Prompt via WinRE as explained in Method 1.
+                    
+                    Run the System File Checker (SFC)
+                    
+                    In the Command Prompt, type:
+                    <pre><code>
+                            sfc /scannow        
+                    </code></pre>
+                    
+                    This will scan your system for any corrupted files and attempt to repair them.
+                    
+                    Run Check Disk (CHKDSK)
+                    
+                    After SFC completes, run CHKDSK to fix any errors on your disk:
+                    <code><pre>
+                        chkdsk /r c:
+                    </pre></code>
+                    
+                    This will scan for bad sectors and recover any readable data.
+                    
+                    Restart your PC after both commands have completed to see if the issue is resolved.
+                </p>
+            </section>
+            <section id="5">
+                <h2>Method 3: Restore the Master Boot Record (MBR)</h2>
+                <p>If the Master Boot Record is corrupted, it can prevent Windows from booting properly.
+                
+                Enter Command Prompt in the WinRE as shown in Method 1.
+                
+                Restore the MBR
+                
+                In the Command Prompt, type each of the following commands and press Enter after each one:</p>
+                <pre><code>
+                    bootrec /fixmbr
+                    bootrec /fixboot
+                    bootrec /scanos
+                    bootrec /rebuildbcd
+                </code></pre>
+                <p>Restart your PC and check if the issue is resolved.</p>
+            </section>
+            <section id="5">
+                <h2>Method 4: Disable Early Launch Anti-Malware Protection</h2>
+                <p>Some drivers or third-party software might be interfering with the boot process, causing Windows to fail repeatedly.
+                
+                Enter the Windows Recovery Environment (WinRE) as mentioned above.
+                
+                Go to Startup Settings
+                
+                In WinRE, click Troubleshoot > Advanced Options > Startup Settings.
+                Disable Early Launch Anti-Malware Protection
+                
+                Click Restart, then press the 8 key on your keyboard to select Disable Early Launch Anti-Malware Protection.
+                Restart your PC and check if it boots properly.</p>
+            </section>
+            <section id="6">
+<h2>Method 5: Perform a System Restore</h2>
+<p>
+If your system has a restore point, this method allows you to roll back to a previous state where everything was working
+fine.
+
+Enter WinRE and select Troubleshoot > Advanced Options > System Restore.
+
+Choose a Restore Point
+
+Follow the on-screen instructions and select a restore point from before the issue started.
+Restore Your PC
+
+Allow Windows to restore your system. Once complete, restart your computer.
+
+<h2>Method 6: Reset or Reinstall Windows</h2>
+<p>
+If all else fails, you may need to reset or reinstall Windows. This method should be used as a last resort, as it may
+result in data loss.
+
+Enter WinRE and select Troubleshoot > Reset this PC.
+
+Choose an Option
+
+You can choose either Keep my files (which keeps your personal files but removes apps and settings) or Remove everything
+(which performs a full reset).
+Follow the Instructions
+
+Follow the on-screen prompts to reset your PC. Once completed, Windows should reinstall and the repair loop should be
+bypassed.
+
+
+</p>
+<h3>Additionally consider a Binary Reset to completly re-install windows fixing all errors, this has the highest chance of working </h3>
+<a href="binary_reset.html">Binary Reset</a>
+            </section>
+            <section id="Conclusion">
+                <h2>Prevention Tips
+                </h2>
+                <p>
+                    To avoid future instances of the automatic repair loop, consider these preventive measures:
+                    
+                    Keep your system up to date: Regularly update Windows and your device drivers.
+                    Use proper shutdown procedures: Avoid force-shutting down your PC frequently.
+                    Perform regular disk checks: Use built-in Windows tools like sfc /scannow and chkdsk regularly.
+                    Back up your data: Always keep backups of important files in case you need to perform a reset.
+                    Conclusion
+                    The automatic repair loop is an annoying but often fixable issue. By following the methods above, you can bypass the
+                    repair loop and get your system working again. If none of these methods work, it might indicate a deeper hardware issue,
+                    and you should consider seeking professional help or replacing malfunctioning hardware.
+                </p>
+            </section>
+
+        </div>
+    </main>
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
